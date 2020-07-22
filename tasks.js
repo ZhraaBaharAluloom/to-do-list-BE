@@ -7,7 +7,7 @@ const tasks = [
   {
     id: 2,
     task: "meeting",
-    status: true,
+    status: false,
   },
   {
     id: 3,
