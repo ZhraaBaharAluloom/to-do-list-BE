@@ -2,17 +2,17 @@ const tasks = [
   {
     id: 1,
     task: "cleaning",
-    status: true,
+    todo: true,
   },
   {
     id: 2,
     task: "meeting",
-    status: false,
+    todo: false,
   },
   {
     id: 3,
     task: "workout",
-    status: true,
+    todo: true,
   },
 ];
 

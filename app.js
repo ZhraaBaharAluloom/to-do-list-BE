@@ -1,5 +1,5 @@
 const express = require("express");
-const tasks = require("./tasks");
+let tasks = require("./tasks");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -15,26 +15,26 @@ app.get("/tasks", (req, res) => {
 app.put("/tasks/:taskId", (req, res) => {
   const { taskId } = req.params;
   const foundTask = tasks.find((task) => task.id === +taskId);
-  foundTask.status = !foundTask.status;
+  foundTask.todo = !foundTask.todo;
   res.status(204).end();
 });
 
-// app.delete("/tasks/:taskId", (req, res) => {
-//   const { taskId } = req.params;
-//   const foundTask = tasks.find((task) => task.id === +taskId);
+app.delete("/tasks/:taskId", async (req, res) => {
+  const { taskId } = req.params;
+  const foundTask = tasks.find((task) => task.id === +taskId);
 
-//   if (foundTask) {
-//     tasks.filter((task) => task.id !== +taskId);
-//     res.status(204).end();
-//   } else {
-//     res.status(404).json({ message: "Not found" });
-//   }
-// });
+  if (foundTask) {
+    tasks = tasks.filter((task) => task.id !== +taskId);
+    res.status(204).end();
+  } else {
+    res.status(404).json({ message: "Not found" });
+  }
+});
 
 app.post("/tasks", (req, res) => {
-  const id = tasks[tasks.length - 1].id + 1;
-  const status = true;
-  const newTask = { id, status, ...req.body };
+  const id = tasks.length === 0 ? 1 : tasks[tasks.length - 1].id + 1;
+  const todo = true;
+  const newTask = { id, todo, ...req.body };
   tasks.push(newTask);
   res.status(201).json(newTask);
 });
